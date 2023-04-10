@@ -1,0 +1,26 @@
+exec (acomp a) (0,s,[]) == (length (acomp a), s, [aval a s])
+                           (counter, memory, stack)
+
+Proof:
+acomp a == [List of instructions for Machine to execute to make a happen]
+exec (x:xs)(0,s,[]) =
+[distributivity] exec(xs)(ixec x (0,s,[])) #executes the first instruction in the list of instructions and runs exex on the rest
+repeat until just [x] #this means it will get repeated length(xs)
+and because length (xs) == length(acomp a) counter == length(acomp a)
+iexec always uses s and will therefore produce a memory which is also s
+the function aval just executes a list of instructions to produce a result therefore the stack == [aval a s]
+
+
+base case p(0)(0,s,[])
+[applying acomp in exec(acomp N 0)(0,s,[])] = exec([LOADI 0])(0,s,[])
+[applying exec([LOADI 0])(0,s,[])] = iexec(LOADI 0)(0,s,[])
+[applying iexec(LOADI 0)(0,s,[])] = (1,s,[0]) <- same as aval
+[showing aval(N 0)(0,s[])] = 0
+
+
+
+Inductive Case: Assume p(n) and show p(n + 1)
+[applying acomp in exec(acomp a)(0,s,[])] = exec(xs)(0,s,[])
+[applying exec(x:xs)(0,s,[])] = exec(xs iexec(x)(0,s,[]))
+[applying iexec(x)(0,s,[])] = exec(xs iexec x (iexec y (0,s,[]))) <- iexec y represents the previous iexec x
+[applying IH] = exec(x (n)) = (length (acomp a), s, [aval a s])
